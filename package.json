@@ -1,0 +1,15 @@
+{
+	"name": "heart-checker-web",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"v": "npm version patch --force",
+		"V": "npm version minor --force",
+		"version": "git add -A",
+		"postversion": "git push"
+	},
+	"author": "OleHo370",
+	"license": "UNLICENSED"
+}
