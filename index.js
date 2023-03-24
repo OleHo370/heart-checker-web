@@ -26,4 +26,9 @@
 	window.idToken = idToken; // for debugging
 
 	log(user);
+
+	document.getElementById('unauth').style.display = 'none';
+	document.getElementById('auth').style.display = 'block';
+
+	document.getElementById('username') = user.email;
 })();

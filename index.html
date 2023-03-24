@@ -5,17 +5,25 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Heart Checker</title>
+		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
 		<h1>Heart Checker</h1>
-		<a
-			href="https://heartchecker.auth.us-east-2.amazoncognito.com/signup?redirect_uri=https%3A%2F%2Foleho370.github.io%2Fheart-checker-web%2F&client_id=107778d20n09hsh4tmoorggolr&response_type=token&scope=email+openid+phone"
-			>Sign Up!</a
-		>
-		<a
-			href="https://heartchecker.auth.us-east-2.amazoncognito.com/login?redirect_uri=https%3A%2F%2Foleho370.github.io%2Fheart-checker-web%2F&client_id=107778d20n09hsh4tmoorggolr&response_type=token&scope=email+openid+phone"
-			>Login</a
-		>
+
+		<div id="unauth">
+			<a
+				href="https://heartchecker.auth.us-east-2.amazoncognito.com/signup?redirect_uri=https%3A%2F%2Foleho370.github.io%2Fheart-checker-web%2F&client_id=107778d20n09hsh4tmoorggolr&response_type=token&scope=email+openid+phone"
+				>Sign Up!</a
+			>
+			<a
+				href="https://heartchecker.auth.us-east-2.amazoncognito.com/login?redirect_uri=https%3A%2F%2Foleho370.github.io%2Fheart-checker-web%2F&client_id=107778d20n09hsh4tmoorggolr&response_type=token&scope=email+openid+phone"
+				>Login</a
+			>
+		</div>
+		<div id="auth">
+			<h2>Welcome <span id="username"></span></h2>
+		</div>
+
 		<script src="
 https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js
 "></script>
