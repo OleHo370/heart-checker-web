@@ -1,3 +1,26 @@
 #auth {
 	display: none;
 }
+
+#medication-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2%;
+}
+
+#medication-container .card {
+	width: 49%;
+}
+
+#medication-container table {
+	width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+	#medication-container {
+		gap: 10px;
+	}
+	#medication-container .card {
+		width: 100%;
+	}
+}

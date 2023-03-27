@@ -28,7 +28,7 @@
 	// log(user);
 
 	// document.getElementById('unauth').style.display = 'none';
-	// document.getElementById('auth').style.display = 'block';
+	document.getElementById('auth').style.display = 'block';
 
 	// document.getElementById('username').innerHTML = user.email;
 
@@ -71,90 +71,118 @@
 
 	log(patient);
 
-	// Assuming you have the patient's routine data stored in a variable named "patient"
+	let daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-	// Get a reference to the HTML table element
-	var table = document.createElement('table');
+	// Display patient's name and email
+	const nameEl = document.getElementById('name');
+	const emailEl = document.getElementById('email');
+	nameEl.innerText = patient.name;
+	// emailEl.innerText = user.email;
 
-	// Create a table header row
-	var headerRow = document.createElement('tr');
+	// Display patient's exercises in table
+	const exerciseTable = document.getElementById('exercise-table');
+	const medicationTable = document.getElementById('medication-table');
 
-	// Add ID and Name columns to the header row
-	var idHeader = document.createElement('th');
-	idHeader.innerHTML = 'ID';
-	headerRow.appendChild(idHeader);
+	for (let excercise of patient.excercises) {
+		let row = document.createElement('tr');
 
-	var nameHeader = document.createElement('th');
-	nameHeader.innerHTML = 'Name';
-	headerRow.appendChild(nameHeader);
+		let name = document.createElement('td');
+		name.textContent = excercise.description;
+		row.appendChild(name);
 
-	// Add Exercises and Prescriptions columns to the header row
-	var exercisesHeader = document.createElement('th');
-	exercisesHeader.innerHTML = 'Exercises';
-	headerRow.appendChild(exercisesHeader);
-
-	var prescriptionsHeader = document.createElement('th');
-	prescriptionsHeader.innerHTML = 'Prescriptions';
-	headerRow.appendChild(prescriptionsHeader);
-
-	// Add the header row to the table
-	table.appendChild(headerRow);
-
-	// Create a row for the patient data
-	var patientRow = document.createElement('tr');
-
-	// Add ID and Name cells to the patient row
-	var idCell = document.createElement('td');
-	idCell.innerHTML = patient.id;
-	patientRow.appendChild(idCell);
-
-	var nameCell = document.createElement('td');
-	nameCell.innerHTML = patient.name;
-	patientRow.appendChild(nameCell);
-
-	// Create a cell for the exercises
-	var exercisesCell = document.createElement('td');
-	var exercisesList = document.createElement('ul');
-
-	// Loop through each exercise and add it to the list
-	for (var i = 0; i < patient.excercises.length; i++) {
-		var exerciseItem = document.createElement('li');
-		exerciseItem.innerHTML = patient.excercises[i].description + ': ' + patient.excercises[i].schedule.join(' ');
-		exercisesList.appendChild(exerciseItem);
+		let schedule = excercise.schedule;
+		for (let j = 0; j < schedule.length; j++) {
+			let cell = document.createElement('td');
+			cell.textContent = schedule[j] ? '✓' : ' ';
+			row.appendChild(cell);
+		}
+		exerciseTable.appendChild(row);
 	}
 
-	exercisesCell.appendChild(exercisesList);
-	patientRow.appendChild(exercisesCell);
+	const prescriptions = patient.prescriptions;
 
-	// Create a cell for the prescriptions
-	var prescriptionsCell = document.createElement('td');
-	var prescriptionsList = document.createElement('ul');
+	// Get the element where the cards will be displayed
+	const medicationContainer = document.getElementById('medication-container');
 
-	// Loop through each prescription and add it to the list
-	for (var j = 0; j < patient.prescriptions.length; j++) {
-		var prescriptionItem = document.createElement('li');
-		prescriptionItem.innerHTML =
-			patient.prescriptions[j].medication +
-			' ' +
-			patient.prescriptions[j].dosage +
-			': ' +
-			patient.prescriptions[j].schedule.join(' ') +
-			' (Start Date: ' +
-			patient.prescriptions[j].start_date +
-			', End Date: ' +
-			patient.prescriptions[j].end_date +
-			')<br>' +
-			'Notes: ' +
-			patient.prescriptions[j].notes;
-		prescriptionsList.appendChild(prescriptionItem);
+	// Loop through the prescriptions and create a card for each one
+	for (let pre of prescriptions) {
+		// Create a card element
+		const card = document.createElement('div');
+		card.classList.add('card');
+
+		// Create a card body element
+		const cardBody = document.createElement('div');
+		cardBody.classList.add('card-body');
+
+		// Add the medication name to the card body
+		const medicationName = document.createElement('h5');
+		medicationName.classList.add('card-title');
+		medicationName.textContent = pre.medication + ' ' + pre.dosage;
+		cardBody.appendChild(medicationName);
+
+		// Add the medication dosage and notes to the card body
+		const medicationDetails = document.createElement('p');
+		medicationDetails.classList.add('card-text');
+		medicationDetails.textContent = pre.notes;
+		cardBody.appendChild(medicationDetails);
+
+		// Add the medication schedule to the card body
+		const table = document.createElement('table');
+		const thead = document.createElement('thead');
+		thead.innerHTML = `
+<tr>
+	<th>Sun</th>
+	<th>Mon</th>
+	<th>Tue</th>
+	<th>Wed</th>
+	<th>Thu</th>
+	<th>Fri</th>
+	<th>Sat</th>
+</tr>`;
+		table.appendChild(thead);
+		const tbody = document.createElement('tbody');
+		let row = document.createElement('tr');
+
+		// Loop through the medication schedule and add the days it's taken to the card
+		let schedule = pre.schedule;
+		for (let j = 0; j < schedule.length; j++) {
+			let cell = document.createElement('td');
+			cell.textContent = schedule[j] ? '✓' : ' ';
+			row.appendChild(cell);
+		}
+
+		tbody.appendChild(row);
+		table.appendChild(tbody);
+
+		const cardBody2 = document.createElement('div');
+		cardBody2.classList.add('card-footer');
+		cardBody2.appendChild(table);
+
+		// Add the card body to the card
+		card.appendChild(cardBody);
+		card.appendChild(cardBody2);
+
+		// Add the card to the container
+		medicationContainer.appendChild(card);
 	}
 
-	prescriptionsCell.appendChild(prescriptionsList);
-	patientRow.appendChild(prescriptionsCell);
+	// let prescriptionProps = ['medication', 'dosage', 'notes', 'start_date', 'end_date'];
 
-	// Add the patient row to the table
-	table.appendChild(patientRow);
+	// for (let prescription of patient.prescriptions) {
+	// 	let row = document.createElement('tr');
 
-	// Add the table to the HTML document
-	document.body.appendChild(table);
+	// 	for (let prop of prescriptionProps) {
+	// 		let cell = document.createElement('td');
+	// 		cell.textContent = prescription[prop];
+	// 		row.appendChild(cell);
+	// 	}
+
+	// 	let schedule = prescription.schedule;
+	// 	for (let j = 0; j < schedule.length; j++) {
+	// 		let cell = document.createElement('td');
+	// 		cell.textContent = schedule[j] ? '✓' : ' ';
+	// 		row.appendChild(cell);
+	// 	}
+	// 	medicationTable.appendChild(row);
+	// }
 })();
