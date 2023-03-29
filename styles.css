@@ -1,5 +1,56 @@
+body {
+	background-color: #e2e2e2 !important;
+}
+
+.container {
+	background-color: #fff;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#user-info {
+	display: flex;
+	justify-content: space-between;
+}
+
+.navbar {
+	width: 100%;
+	background-color: #7925ff;
+	border-radius: 10px;
+	display: flex;
+	justify-content: center !important;
+	margin-bottom: 20px;
+}
+
+.navbar-brand {
+	color: white !important;
+}
+
+th,
+td {
+	text-align: center !important;
+}
+
 #auth {
 	display: none;
+	width: 100%;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+#auth > div {
+	width: 100%;
+}
+
+#exercise-table-div {
+	width: 100%;
+	overflow-x: scroll;
+}
+
+#exercise-table thead {
+	color: white;
+	background-color: #ff3a3a;
+	border-color: #796565;
 }
 
 #medication-container {
@@ -14,6 +65,16 @@
 
 #medication-container table {
 	width: 100%;
+}
+
+#medication-container .card-footer {
+	color: white;
+	background-color: #4c67b4;
+}
+
+#medication-container .card-title {
+	color: #4c67b4;
+	font-weight: bold;
 }
 
 @media screen and (max-width: 600px) {

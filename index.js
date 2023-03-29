@@ -27,13 +27,13 @@
 
 	// log(user);
 
-	// document.getElementById('unauth').style.display = 'none';
-	document.getElementById('auth').style.display = 'block';
+	document.getElementById('unauth').style.display = 'none';
+	document.getElementById('auth').style.display = 'flex';
 
 	// document.getElementById('username').innerHTML = user.email;
 
-	// let url = 'https://cikq6fmf4e.execute-api.us-east-2.amazonaws.com/main/patient';
-	// let data = await fetch(url);
+	let url = 'https://cikq6fmf4e.execute-api.us-east-2.amazonaws.com/main/patient';
+	let data = await fetch(url);
 	// let patient = await data.json();
 
 	let patient = {
@@ -61,7 +61,7 @@
 			{
 				medication: 'Metoprolol',
 				dosage: '50mg',
-				schedule: [0, 0, 2, 0, 2, 0, 0],
+				schedule: [0, 1, 0, 0, 0, 1, 0],
 				notes: 'Beta blocker to control heart rate and blood pressure',
 				start_date: '2022-01-01',
 				end_date: '2022-06-30'
@@ -80,8 +80,7 @@
 	// emailEl.innerText = user.email;
 
 	// Display patient's exercises in table
-	const exerciseTable = document.getElementById('exercise-table');
-	const medicationTable = document.getElementById('medication-table');
+	const exerciseTable = document.getElementById('exercise-table-body');
 
 	for (let excercise of patient.excercises) {
 		let row = document.createElement('tr');
@@ -93,7 +92,7 @@
 		let schedule = excercise.schedule;
 		for (let j = 0; j < schedule.length; j++) {
 			let cell = document.createElement('td');
-			cell.textContent = schedule[j] ? '✓' : ' ';
+			cell.textContent = schedule[j] + 'hrs';
 			row.appendChild(cell);
 		}
 		exerciseTable.appendChild(row);
@@ -115,7 +114,7 @@
 		cardBody.classList.add('card-body');
 
 		// Add the medication name to the card body
-		const medicationName = document.createElement('h5');
+		const medicationName = document.createElement('h4');
 		medicationName.classList.add('card-title');
 		medicationName.textContent = pre.medication + ' ' + pre.dosage;
 		cardBody.appendChild(medicationName);
@@ -147,7 +146,7 @@
 		let schedule = pre.schedule;
 		for (let j = 0; j < schedule.length; j++) {
 			let cell = document.createElement('td');
-			cell.textContent = schedule[j] ? '✓' : ' ';
+			cell.textContent = schedule[j];
 			row.appendChild(cell);
 		}
 

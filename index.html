@@ -15,7 +15,12 @@
 	</head>
 	<body>
 		<div class="container">
-		<h1>Heart Checker</h1>
+			<nav class="navbar">
+				<a class="navbar-brand" href="#">
+					<h1>Heart Checker</h1>
+				</a>
+			</nav>
+		
 
 		<div id="unauth">
 			<a
@@ -29,14 +34,15 @@
 		</div>
 		<div id="auth">
 			
-			<div>
-				<p>Name: <span id="name"></span></p>
-				<p>Email: <span id="email"></span></p>
+			<div id="user-info">
+				<h3>Welcome <span id="name"></span>!</h3>
+				<p><span id="email">joe@gmail.com</span></p>
 			</div>
 
 			<div>
-				<h2>Exercise Routine</h2>
-				<table class="table table-hover">
+				<h4>Exercise Routine</h4>
+				<div id="exercise-table-div">
+				<table id="exercise-table" class="table table-hover">
 					<thead>
 						<tr>
 							<th>Description</th>
@@ -49,8 +55,9 @@
 							<th>Sat</th>
 						</tr>
 					</thead>
-					<tbody id="exercise-table"></tbody>
+					<tbody id="exercise-table-body"></tbody>
 				</table>
+				</div>
 			</div>
 
 			<div id="medication-container"></div>
