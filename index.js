@@ -22,9 +22,6 @@
 		window.history.pushState(null, '', location.href.split(/[?#]/)[0]);
 	}
 
-	// // DELETE LATER
-	window.idToken = idToken; // for debugging
-
 	log(user);
 
 	document.getElementById('unauth').style.display = 'none';
@@ -41,6 +38,7 @@
 		}
 	});
 	let patient = await data.json();
+	window.patient = patient;
 
 	log(patient);
 
