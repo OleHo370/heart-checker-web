@@ -73,11 +73,11 @@ td {
 }
 
 #medication-container .card-title {
-	color: #ef476f;
+	color: #26547c;
 	font-weight: bold;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
 	#medication-container {
 		gap: 10px;
 	}

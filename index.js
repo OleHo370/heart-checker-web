@@ -38,7 +38,6 @@
 		}
 	});
 	let patient = await data.json();
-	window.patient = patient;
 
 	log(patient);
 
@@ -162,23 +161,7 @@
 		medicationContainer.appendChild(card);
 	}
 
-	// let prescriptionProps = ['medication', 'dosage', 'notes', 'start_date', 'end_date'];
-
-	// for (let prescription of patient.prescriptions) {
-	// 	let row = document.createElement('tr');
-
-	// 	for (let prop of prescriptionProps) {
-	// 		let cell = document.createElement('td');
-	// 		cell.textContent = prescription[prop];
-	// 		row.appendChild(cell);
-	// 	}
-
-	// 	let schedule = prescription.schedule;
-	// 	for (let j = 0; j < schedule.length; j++) {
-	// 		let cell = document.createElement('td');
-	// 		cell.textContent = schedule[j] ? '✓' : ' ';
-	// 		row.appendChild(cell);
-	// 	}
-	// 	medicationTable.appendChild(row);
-	// }
+	if (window.webkit !== undefined) {
+		webkit.messageHandlers.messageHandler.postMessage(JSON.stringify(patient || ''));
+	}
 })();
