@@ -62,7 +62,7 @@
 		let schedule = exercise.schedule;
 		for (let j = 0; j < schedule.length; j++) {
 			let cell = document.createElement('td');
-			cell.textContent = schedule[j] + 'hrs';
+			cell.textContent = schedule[j].hour + 'hrs';
 			row.appendChild(cell);
 		}
 		exerciseTable.appendChild(row);
