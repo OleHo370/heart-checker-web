@@ -52,14 +52,14 @@
 	// Display patient's exercises in table
 	const exerciseTable = document.getElementById('exercise-table-body');
 
-	for (let excercise of patient.excercises) {
+	for (let exercise of patient.exercises) {
 		let row = document.createElement('tr');
 
 		let name = document.createElement('td');
-		name.textContent = excercise.description;
+		name.textContent = exercise.description;
 		row.appendChild(name);
 
-		let schedule = excercise.schedule;
+		let schedule = exercise.schedule;
 		for (let j = 0; j < schedule.length; j++) {
 			let cell = document.createElement('td');
 			cell.textContent = schedule[j] + 'hrs';
