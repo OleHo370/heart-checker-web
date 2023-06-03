@@ -63,11 +63,12 @@ async function submit(event) {
 
 	let url = 'https://cikq6fmf4e.execute-api.us-east-2.amazonaws.com/main/patient';
 	let data1 = await fetch(url, {
-		method: 'GET',
+		method: 'POST',
 		headers: {
 			Authorization: idToken,
 			'Content-Type': 'application/json'
-		}
+		},
+		body: JSON.stringify(data)
 	});
 	let msg = await data1.text();
 	alert(msg);

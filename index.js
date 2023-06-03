@@ -3,24 +3,26 @@
 	const log = console.log;
 
 	let user;
-	let idToken = localStorage.getItem('idToken');
 
-	if (idToken && idToken != 'null') user = jwt_decode(idToken);
-	else idToken = null;
-
-	if (!idToken || user.exp < Date.now() / 1000) {
-		// get the AWS Cognito id_token from the URL
-		let params = location.search;
-		if (!params) params = '?' + location.hash.slice(1);
-		const urlParams = new URLSearchParams(params);
-		idToken = urlParams.get('id_token');
-		if (!idToken) return;
-		localStorage.setItem('idToken', idToken);
-		user = jwt_decode(idToken);
-
-		// hide the token from the URL
-		window.history.pushState(null, '', location.href.split(/[?#]/)[0]);
+	// get the AWS Cognito id_token from the URL
+	let params = location.search;
+	if (!params) params = '?' + location.hash.slice(1);
+	const urlParams = new URLSearchParams(params);
+	idToken = urlParams.get('id_token');
+	// if id token not found in the url
+	if (!idToken) {
+		idToken = localStorage.getItem('idToken');
 	}
+	if (!idToken) return;
+
+	// save idToken in localStorage
+	localStorage.setItem('idToken', idToken);
+
+	// get user object from token
+	user = jwt_decode(idToken);
+
+	// hide the token from the URL
+	window.history.pushState(null, '', location.href.split(/[?#]/)[0]);
 
 	log(user);
 
