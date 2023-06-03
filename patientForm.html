@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Patient Form</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="patientForm.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="text-center my-4">Patient Form</h1>
+			<form id="patientForm">
+				<div class="form-group">
+					<input type="text" class="form-control mb-2" id="name" name="name" placeholder="Patient's Name" required />
+					<input type="text" class="form-control" id="email" name="email" placeholder="Patient's Email" required />
+				</div>
+
+				<div class="form-group">
+					<h3 for="exercises">Exercises</h3>
+					<div id="exercises"></div>
+					<button type="button" id="add-exercise-btn" class="btn btn-success">Add Exercise</button>
+					<button type="button" id="remove-exercise-btn" class="btn btn-danger">Remove Exercise</button>
+				</div>
+
+				<div class="form-group">
+					<h3 for="prescriptions">Prescriptions</h3>
+					<div id="prescriptions"></div>
+					<button type="button" id="add-prescription-btn" class="btn btn-success">Add Prescription</button>
+					<button type="button" id="remove-prescription-btn" class="btn btn-danger">Remove Prescription</button>
+				</div>
+
+				<button type="submit" id="submit-btn" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+		<script src="patientForm.js"></script>
+	</body>
+</html>
