@@ -31,7 +31,7 @@ async function submit(event) {
 		ex.schedule = [];
 		for (let j = 0; j < 7; j++) {
 			let exUnit = {};
-			exUnit.hour = document.getElementById(`ex${i}-${j}-hour`).value;
+			exUnit.hour = Number(document.getElementById(`ex${i}-${j}-hour`).value);
 			ex.schedule.push(exUnit);
 		}
 		data.exercises.push(ex);
@@ -51,8 +51,8 @@ async function submit(event) {
 			let medUnits = document.getElementById(`pre${i}-${j}-med-units`);
 			for (let k = 0; k < medUnits.children.length; k++) {
 				let medUnit = {};
-				medUnit.hour = document.getElementById(`pre${i}-${j}-hour`).value;
-				medUnit.amount = document.getElementById(`pre${i}-${j}-pills`).value;
+				medUnit.hour = Number(document.getElementById(`pre${i}-${j}-hour`).value);
+				medUnit.amount = Number(document.getElementById(`pre${i}-${j}-pills`).value);
 				if (medUnit.amount) medUnitsArray.push(medUnit);
 			}
 			pre.schedule.push(medUnitsArray);
