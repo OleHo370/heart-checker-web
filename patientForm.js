@@ -216,7 +216,7 @@ function addPrescription() {
 	schedule.innerHTML += `
 <div id = "firstCol" class="col pre-sched-labels"></div>`;
 
-	let max = 0;
+	let max = -1;
 	let firstCol = document.getElementById(`firstCol`);
 
 	for (let i = 0; i < 7; i++) {
