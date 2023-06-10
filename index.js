@@ -27,7 +27,7 @@
 	log(user);
 
 	// token expired
-	if (Date.now() > user.exp) return;
+	if (Date.now() > user.exp * 1000) return;
 
 	document.getElementById('unauth').style.display = 'none';
 	document.getElementById('auth').style.display = 'flex';
