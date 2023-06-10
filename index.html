@@ -20,49 +20,60 @@
 					<h1>Heart Checker</h1>
 				</a>
 			</nav>
-		
 
-		<div id="unauth">
-			<a
-				href="https://heartchecker.auth.us-east-2.amazoncognito.com/signup?redirect_uri=https%3A%2F%2Foleho370.github.io%2Fheart-checker-web%2F&client_id=107778d20n09hsh4tmoorggolr&response_type=token&scope=email+openid+phone"
-				>Sign Up!</a
-			>
-			<a
-				href="https://heartchecker.auth.us-east-2.amazoncognito.com/login?redirect_uri=https%3A%2F%2Foleho370.github.io%2Fheart-checker-web%2F&client_id=107778d20n09hsh4tmoorggolr&response_type=token&scope=email+openid+phone"
-				>Login</a
-			>
-		</div>
-		<div id="auth">
-			
-			<div id="user-info">
-				<h3>Welcome <span id="name"></span>!</h3>
-				<p><span id="email">joe@gmail.com</span></p>
+			<div id="unauth">
+				<a
+					href="https://heartchecker.auth.us-east-2.amazoncognito.com/signup?redirect_uri=https%3A%2F%2Foleho370.github.io%2Fheart-checker-web%2F&client_id=107778d20n09hsh4tmoorggolr&response_type=token&scope=email+openid+phone"
+					>Sign Up!</a
+				>
+				<a
+					href="https://heartchecker.auth.us-east-2.amazoncognito.com/login?redirect_uri=https%3A%2F%2Foleho370.github.io%2Fheart-checker-web%2F&client_id=107778d20n09hsh4tmoorggolr&response_type=token&scope=email+openid+phone"
+					>Login</a
+				>
 			</div>
+			<div id="auth">
+				<div id="user-info">
+					<h3>Welcome <span id="name"></span>!</h3>
+					<p><span id="email">joe@gmail.com</span></p>
+				</div>
 
-			<div>
-				<h4>Exercise Routine</h4>
-				<div id="exercise-table-div">
-				<table id="exercise-table" class="table table-hover">
-					<thead>
-						<tr>
-							<th>Description</th>
-							<th>Sun</th>
-							<th>Mon</th>
-							<th>Tue</th>
-							<th>Wed</th>
-							<th>Thu</th>
-							<th>Fri</th>
-							<th>Sat</th>
-						</tr>
-					</thead>
-					<tbody id="exercise-table-body"></tbody>
-				</table>
+				<div id="patient-info">
+					<div>
+						<h4>Exercise Routine</h4>
+						<div id="exercise-table-div">
+							<table id="exercise-table" class="table table-hover">
+								<thead>
+									<tr>
+										<th>Description</th>
+										<th>Sun</th>
+										<th>Mon</th>
+										<th>Tue</th>
+										<th>Wed</th>
+										<th>Thu</th>
+										<th>Fri</th>
+										<th>Sat</th>
+									</tr>
+								</thead>
+								<tbody id="exercise-table-body"></tbody>
+							</table>
+						</div>
+					</div>
+					<div id="medication-container"></div>
+				</div>
+
+				<div id="doctor-info">
+					<table id="patientsTable" class="table">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Email</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
 				</div>
 			</div>
-
-			<div id="medication-container"></div>
 		</div>
-
 
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"

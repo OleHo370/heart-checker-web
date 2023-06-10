@@ -42,17 +42,27 @@
 			'Content-Type': 'application/json'
 		}
 	});
-	let patient = await data.json();
+	let userData = await data.json();
 
-	log(patient);
-
-	let daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+	log(userData);
 
 	// Display patient's name and email
 	const nameEl = document.getElementById('name');
 	const emailEl = document.getElementById('email');
-	nameEl.innerText = patient.name;
-	// emailEl.innerText = user.email;
+	nameEl.innerText = userData.name;
+	// emailEl.innerText = userData.email;
+
+	if (userData.patients == undefined) {
+		displayPatientInfo(userData);
+	} else {
+		displayDoctorInfo(userData);
+	}
+})();
+
+function displayPatientInfo(patient) {
+	document.getElementById('doctor-info').style.display = 'none';
+
+	let daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 	// Display patient's exercises in table
 	const exerciseTable = document.getElementById('exercise-table-body');
@@ -169,4 +179,20 @@
 	if (window.webkit !== undefined) {
 		webkit.messageHandlers.messageHandler.postMessage(JSON.stringify(patient || ''));
 	}
-})();
+}
+
+function displayDoctorInfo(doctor) {
+	document.getElementById('patient-info').style.display = 'none';
+
+	// Generate the table rows dynamically
+	const tableBody = document.querySelector('#patientsTable tbody');
+
+	for (let patient of doctor.patients) {
+		const row = document.createElement('tr');
+		row.innerHTML = `
+				<td>${patient.name}</td>
+				<td>${patient.email}</td>
+			`;
+		tableBody.appendChild(row);
+	}
+}
