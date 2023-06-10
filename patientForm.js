@@ -51,8 +51,8 @@ async function submit(event) {
 			let medUnits = document.getElementById(`pre${i}-${j}-med-units`);
 			for (let k = 0; k < medUnits.children.length; k++) {
 				let medUnit = {};
-				medUnit.hour = Number(document.getElementById(`pre${i}-${j}-hour`).value);
-				medUnit.amount = Number(document.getElementById(`pre${i}-${j}-pills`).value);
+				medUnit.hour = Number(document.getElementById(`pre${i}-${j}-${k}-hour`).value);
+				medUnit.amount = Number(document.getElementById(`pre${i}-${j}-${k}-pills`).value);
 				if (medUnit.amount) medUnitsArray.push(medUnit);
 			}
 			pre.schedule.push(medUnitsArray);
@@ -135,6 +135,7 @@ function removePrescription() {
 }
 
 function addPrescription() {
+	let curPre = preCount;
 	prescriptions.insertAdjacentHTML(
 		'beforeend',
 
@@ -219,6 +220,7 @@ function addPrescription() {
 	let firstCol = document.getElementById(`firstCol`);
 
 	for (let i = 0; i < 7; i++) {
+		let unitNum = -1;
 		let day = daysOfWeek[i];
 		schedule.insertAdjacentHTML(
 			'beforeend',
@@ -238,6 +240,8 @@ function addPrescription() {
 		addUnitBtn.addEventListener('click', addUnit);
 
 		function addUnit() {
+			unitNum++;
+
 			if (medUnits.children.length > max) {
 				max = medUnits.children.length;
 				console.log('new max: ' + max);
@@ -255,8 +259,8 @@ function addPrescription() {
 				'beforeend',
 				`
 		<div class="med-unit mb-2">
-			<input class="form-control mb-2" id="pre${preCount}-${i}-hour" value="0" min="0" max="24" />
-			<input class="form-control" id="pre${preCount}-${i}-pills" value="0" min="0" />
+			<input class="form-control mb-2" id="pre${curPre}-${i}-${unitNum}-hour" value="0" min="0" max="24" />
+			<input class="form-control" id="pre${curPre}-${i}-${unitNum}-pills" value="0" min="0" />
 		</div>`
 			);
 		}
