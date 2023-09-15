@@ -196,7 +196,7 @@ function displayDoctorInfo(doctor) {
 		tableBody.appendChild(row);
 
 		row.addEventListener('click', function () {
-			let url = '/patientForm.html?';
+			let url = 'patientForm.html?';
 			url += 'name=' + patient.name + '&email=' + patient.email + '&id=' + patient.id;
 			window.open(url);
 		});
