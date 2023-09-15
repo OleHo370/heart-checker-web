@@ -1,3 +1,5 @@
+const log = console.log;
+
 let daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 let exercises = document.getElementById('exercises');
@@ -14,12 +16,67 @@ form.addEventListener('submit', submit);
 
 let idToken = localStorage.getItem('idToken');
 
+let params = location.search;
+if (!params) params = '?' + location.hash.slice(1);
+const urlParams = new URLSearchParams(params);
+
+document.getElementById('name').value = urlParams.get('name');
+document.getElementById('email').value = urlParams.get('email');
+const patientID = urlParams.get('id');
+
+async function start() {
+	// get patient data to fill in form with any pre-exisitng data
+	// so the doctor can edit it
+
+	let url = 'https://cikq6fmf4e.execute-api.us-east-2.amazonaws.com/main/patient';
+	let data = await fetch(url, {
+		method: 'POST',
+		headers: {
+			Authorization: idToken,
+			'Content-Type': 'application/json'
+		},
+		body: `{"id":"${patientID}", "action":"getPatientData"}`
+	});
+	let patientData = await data.json();
+
+	log(patientData);
+
+	let exercises = patientData.exercises;
+	for (let i = 0; i < exercises.length; i++) {
+		if (i != 0) addExercise();
+		let ex = exercises[i];
+		document.getElementById(`ex${i}-description`).value = ex.description;
+		for (let j = 0; j < 7; j++) {
+			document.getElementById(`ex${i}-${j}-hour`).value = ex.schedule[j].hour;
+		}
+	}
+	let prescriptions = patientData.prescriptions;
+	for (let i = 0; i < prescriptions.length; i++) {
+		if (i != 0) addPrescription();
+		let pre = prescriptions[i];
+		document.getElementById(`pre${i}-medication`).value = pre.medication;
+		document.getElementById(`pre${i}-dosage`).value = pre.dosage;
+		document.getElementById(`pre${i}-notes`).value = pre.notes;
+		document.getElementById(`pre${i}-startDate`).value = pre.start_date;
+		document.getElementById(`pre${i}-endDate`).value = pre.end_date;
+		for (let j = 0; j < 7; j++) {
+			let medUnits = pre.schedule[j];
+			for (let k = 0; k < medUnits.length; k++) {
+				if (k != 0) addUnit(i, j, k);
+				let medUnit = medUnits[k];
+				document.getElementById(`pre${i}-${j}-${k}-hour`).value = medUnit.hour;
+				document.getElementById(`pre${i}-${j}-${k}-pills`).value = medUnit.amount;
+			}
+		}
+	}
+}
+start();
+
 async function submit(event) {
 	event.preventDefault();
 
-	// TODO: get id from doctor's list of patients
 	let data = {
-		id: 'b302bd2f-8fd2-4439-b1d8-859b536a7629'
+		id: patientID
 	};
 	data.name = document.getElementById('name').value;
 	data.email = document.getElementById('email').value;
@@ -214,13 +271,13 @@ function addPrescription() {
 	let schedule = document.getElementById(`pre${preCount}-schedule`);
 
 	schedule.innerHTML += `
-<div id = "firstCol" class="col pre-sched-labels"></div>`;
+<div id="pre${preCount}-firstCol" class="col pre-sched-labels"></div>`;
 
-	let max = -1;
-	let firstCol = document.getElementById(`firstCol`);
+	schedule.max = -1;
+	schedule.firstCol = document.getElementById(`pre${preCount}-firstCol`);
 
 	for (let i = 0; i < 7; i++) {
-		let unitNum = -1;
+		let unitNum = 0;
 		let day = daysOfWeek[i];
 		schedule.insertAdjacentHTML(
 			'beforeend',
@@ -237,36 +294,39 @@ function addPrescription() {
 		let medUnits = document.getElementById(`pre${preCount}-${i}-med-units`);
 
 		let addUnitBtn = document.getElementById(`pre${preCount}-${i}-pill-add-btn`);
-		addUnitBtn.addEventListener('click', addUnit);
+		addUnitBtn.addEventListener('click', () => addUnit(curPre, i, unitNum));
 
-		function addUnit() {
-			unitNum++;
+		addUnit(curPre, i, unitNum);
+	}
 
-			if (medUnits.children.length > max) {
-				max = medUnits.children.length;
-				console.log('new max: ' + max);
-				firstCol.insertAdjacentHTML(
-					'beforeend',
-					`
+	preCount++;
+}
+function addUnit(preNum, day, unitNum) {
+	let schedule = document.getElementById(`pre${preNum}-schedule`);
+
+	let medUnits = document.getElementById(`pre${preNum}-${day}-med-units`);
+
+	if (medUnits.children.length > schedule.max) {
+		schedule.max = medUnits.children.length;
+		console.log('new max: ' + schedule.max);
+		schedule.firstCol.insertAdjacentHTML(
+			'beforeend',
+			`
 					<div class="Hr">
 						<p>Hour</p>
 						<p># of pills</p>
 					</div>`
-				);
-			}
-
-			medUnits.insertAdjacentHTML(
-				'beforeend',
-				`
-		<div class="med-unit mb-2">
-			<input class="form-control mb-2" id="pre${curPre}-${i}-${unitNum}-hour" value="0" min="0" max="24" />
-			<input class="form-control" id="pre${curPre}-${i}-${unitNum}-pills" value="0" min="0" />
-		</div>`
-			);
-		}
-		addUnit();
+		);
 	}
 
-	preCount++;
+	medUnits.insertAdjacentHTML(
+		'beforeend',
+		`
+		<div class="med-unit mb-2">
+			<input class="form-control mb-2" id="pre${preNum}-${day}-${unitNum}-hour" value="0" min="0" max="24" />
+			<input class="form-control" id="pre${preNum}-${day}-${unitNum}-pills" value="0" min="0" />
+		</div>`
+	);
+	unitNum++;
 }
 addPrescription();
