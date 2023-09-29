@@ -8,6 +8,27 @@ body {
 	padding-bottom: 10px;
 }
 
+#accountBtn,
+#patient-info,
+#doctor-info {
+	display: none;
+}
+
+#accountBtn {
+	gap: 10px;
+}
+
+#accountBtn button {
+	width: 50%;
+	height: 60px;
+	text-align: center;
+	color: white;
+	font-size: 32px;
+	font-weight: bold;
+	background-color: #ff3a3a;
+	border-radius: 10px;
+}
+
 #user-info {
 	display: flex;
 	justify-content: space-between;

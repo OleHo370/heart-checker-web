@@ -76,7 +76,8 @@ async function submit(event) {
 	event.preventDefault();
 
 	let data = {
-		id: patientID
+		id: patientID,
+		account: 'patient'
 	};
 	data.name = document.getElementById('name').value;
 	data.email = document.getElementById('email').value;

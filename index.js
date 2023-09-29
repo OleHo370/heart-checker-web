@@ -42,6 +42,10 @@
 			'Content-Type': 'application/json'
 		}
 	});
+	if (data.status == 404) {
+		onboarding();
+		return;
+	}
 	let userData = await data.json();
 
 	log(userData);
@@ -180,6 +184,23 @@ function displayPatientInfo(patient) {
 		webkit.messageHandlers.messageHandler.postMessage(JSON.stringify(patient || ''));
 	}
 }
+
+function onboarding() {
+	document.getElementById('accountBtn').style.display = 'flex';
+	document.getElementById('doctor').addEventListener('click', createDoctorFile);
+	document.getElementById('patient').addEventListener('click', createPatientFile);
+}
+async function createDoctorFile() {
+	let data = await fetch(url, {
+		method: 'POST',
+		headers: {
+			Authorization: idToken,
+			'Content-Type': 'application/json'
+		},
+		body: `{"account": "doctor", "action": "createAccountFile"}`
+	});
+}
+function createPatientFile() {}
 
 function displayDoctorInfo(doctor) {
 	document.getElementById('patient-info').style.display = 'none';
