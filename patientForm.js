@@ -24,7 +24,15 @@ document.getElementById('name').value = urlParams.get('name');
 document.getElementById('email').value = urlParams.get('email');
 const patientID = urlParams.get('id');
 
-async function start() {
+let isNewPatient = false;
+
+if (patientID) {
+	fillForm();
+} else {
+	isNewPatient = true;
+}
+
+async function fillForm() {
 	// get patient data to fill in form with any pre-exisitng data
 	// so the doctor can edit it
 
@@ -70,15 +78,17 @@ async function start() {
 		}
 	}
 }
-start();
 
 async function submit(event) {
 	event.preventDefault();
 
 	let data = {
-		id: patientID,
 		account: 'patient'
 	};
+
+	if (isNewPatient) data.isNewPatient = true;
+	else data.id = patientID;
+
 	data.name = document.getElementById('name').value;
 	data.email = document.getElementById('email').value;
 

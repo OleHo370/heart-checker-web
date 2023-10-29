@@ -1,9 +1,10 @@
-// Parse the URL to extract the id_token parameter
-(async () => {
-	const log = console.log;
+let url = 'https://cikq6fmf4e.execute-api.us-east-2.amazonaws.com/main/patient';
+const log = console.log;
 
+(async () => {
 	let user;
 
+	// Parse the URL to extract the id_token parameter
 	// get the AWS Cognito id_token from the URL
 	let params = location.search;
 	if (!params) params = '?' + location.hash.slice(1);
@@ -34,7 +35,6 @@
 
 	document.getElementById('email').innerHTML = user.email;
 
-	let url = 'https://cikq6fmf4e.execute-api.us-east-2.amazonaws.com/main/patient';
 	let data = await fetch(url, {
 		method: 'GET',
 		headers: {
@@ -42,10 +42,7 @@
 			'Content-Type': 'application/json'
 		}
 	});
-	if (data.status == 404) {
-		onboarding();
-		return;
-	}
+
 	let userData = await data.json();
 
 	log(userData);
@@ -53,10 +50,10 @@
 	// Display patient's name and email
 	const nameEl = document.getElementById('name');
 	const emailEl = document.getElementById('email');
-	nameEl.innerText = userData.name;
+	nameEl.innerText = userData.name || 'Doctor';
 	// emailEl.innerText = userData.email;
 
-	if (userData.patients == undefined) {
+	if (userData.account == 'patient') {
 		displayPatientInfo(userData);
 	} else {
 		displayDoctorInfo(userData);
@@ -185,23 +182,6 @@ function displayPatientInfo(patient) {
 	}
 }
 
-function onboarding() {
-	document.getElementById('accountBtn').style.display = 'flex';
-	document.getElementById('doctor').addEventListener('click', createDoctorFile);
-	document.getElementById('patient').addEventListener('click', createPatientFile);
-}
-async function createDoctorFile() {
-	let data = await fetch(url, {
-		method: 'POST',
-		headers: {
-			Authorization: idToken,
-			'Content-Type': 'application/json'
-		},
-		body: `{"account": "doctor", "action": "createAccountFile"}`
-	});
-}
-function createPatientFile() {}
-
 function displayDoctorInfo(doctor) {
 	document.getElementById('patient-info').style.display = 'none';
 
@@ -222,4 +202,41 @@ function displayDoctorInfo(doctor) {
 			window.open(url);
 		});
 	}
+
+	const addPatient = document.getElementById('addPatient');
+	addPatient.addEventListener('click', function () {
+		let url = 'patientForm.html';
+		window.open(url);
+	});
 }
+
+// function onboarding() {
+// 	document.getElementById('accountBtn').style.display = 'flex';
+// 	document.getElementById('doctor').addEventListener('click', createDoctorFile);
+// 	document.getElementById('patient').addEventListener('click', createPatientFile);
+// }
+// async function createDoctorFile() {
+// 	let res = await fetch(url, {
+// 		method: 'POST',
+// 		headers: {
+// 			Authorization: idToken,
+// 			'Content-Type': 'application/json'
+// 		},
+// 		body: `{"account": "doctor", "action": "createAccountFile"}`
+// 	});
+// 	let responseText = await res.text();
+
+// 	log(res.status, responseText);
+// }
+// async function createPatientFile() {
+// 	let res = await fetch(url, {
+// 		method: 'POST',
+// 		headers: {
+// 			Authorization: idToken,
+// 			'Content-Type': 'application/json'
+// 		},
+// 		body: `{"account": "patient", "action": "createAccountFile"}`
+// 	});
+// 	let responseText = await res.text();
+// 	log(res.status, responseText);
+// }
