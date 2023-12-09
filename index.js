@@ -42,7 +42,6 @@ const log = console.log;
 			'Content-Type': 'application/json'
 		}
 	});
-
 	let userData = await data.json();
 
 	log(userData);
@@ -209,34 +208,3 @@ function displayDoctorInfo(doctor) {
 		window.open(url);
 	});
 }
-
-// function onboarding() {
-// 	document.getElementById('accountBtn').style.display = 'flex';
-// 	document.getElementById('doctor').addEventListener('click', createDoctorFile);
-// 	document.getElementById('patient').addEventListener('click', createPatientFile);
-// }
-// async function createDoctorFile() {
-// 	let res = await fetch(url, {
-// 		method: 'POST',
-// 		headers: {
-// 			Authorization: idToken,
-// 			'Content-Type': 'application/json'
-// 		},
-// 		body: `{"account": "doctor", "action": "createAccountFile"}`
-// 	});
-// 	let responseText = await res.text();
-
-// 	log(res.status, responseText);
-// }
-// async function createPatientFile() {
-// 	let res = await fetch(url, {
-// 		method: 'POST',
-// 		headers: {
-// 			Authorization: idToken,
-// 			'Content-Type': 'application/json'
-// 		},
-// 		body: `{"account": "patient", "action": "createAccountFile"}`
-// 	});
-// 	let responseText = await res.text();
-// 	log(res.status, responseText);
-// }

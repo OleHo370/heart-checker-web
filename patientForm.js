@@ -139,6 +139,7 @@ async function submit(event) {
 		body: JSON.stringify(data)
 	});
 	let msg = await data1.text();
+	log(msg);
 	alert(msg);
 }
 
